@@ -1,0 +1,66 @@
+# =========================
+# Node.js & Backend
+# =========================
+node_modules/
+.env
+.env.*    # Other env files like .env.local, .env.production
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Logs
+logs
+*.log
+*.log.*
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Runtime data
+tmp
+temp
+
+# =========================
+# React / Vite Frontend
+# =========================
+# Production build output
+dist/
+build/
+
+# Cache & temp
+.cache/
+.vite/
+*.tsbuildinfo
+
+# =========================
+# OS Files
+# =========================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*~
+
+# =========================
+# Misc
+# =========================
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# =========================
+# Optional: Ignore test coverage reports
+# =========================
+coverage/
