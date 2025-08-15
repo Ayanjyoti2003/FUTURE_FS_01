@@ -3,7 +3,7 @@ import project2 from "../assets/project2.png";
 
 const projects = [
     { id: 1, title: "E-commerce Website", image: project1, link: "#" },
-    { id: 2, title: "Portfolio Website", image: project2, link: "#" },
+    { id: 2, title: "Portfolio Website", image: project2, link: "https://github.com/Ayanjyoti2003/FUTURE_FS_01" },
 ];
 
 export default function Projects() {
