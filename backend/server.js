@@ -16,22 +16,34 @@ const allowedOrigins = [
 // Middleware
 app.use(cors({
     origin: function (origin, callback) {
-        // allow requests with no origin (like mobile apps, curl)
+        // Allow requests with no origin (mobile apps, curl, Postman)
         if (!origin) return callback(null, true);
-        if (allowedOrigins.includes(origin)) {
+
+        // Normalize origin by removing trailing slash
+        const normalizedOrigin = origin.replace(/\/$/, "");
+
+        if (allowedOrigins.includes(normalizedOrigin)) {
             return callback(null, true);
         } else {
             return callback(new Error("Not allowed by CORS"));
         }
     },
-    methods: ["GET", "POST"],
+    methods: ["GET", "POST", "OPTIONS"], // include OPTIONS for preflight
     allowedHeaders: ["Content-Type"]
 }));
+
+// Handle preflight requests explicitly
+app.options("*", cors());
+
 app.use(express.json());
 
 // Contact form route
 app.post("/contact", async (req, res) => {
     const { name, email, message } = req.body;
+
+    if (!name || !email || !message) {
+        return res.status(400).json({ success: false, message: "All fields are required." });
+    }
 
     try {
         const transporter = nodemailer.createTransport({
@@ -51,12 +63,12 @@ app.post("/contact", async (req, res) => {
 
         res.status(200).json({ success: true, message: "Email sent successfully!" });
     } catch (error) {
-        console.error(error);
+        console.error("Email sending error:", error);
         res.status(500).json({ success: false, message: "Failed to send email." });
     }
 });
 
 // Start server
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+    console.log(`✅ Server running on port ${PORT}`);
 });
